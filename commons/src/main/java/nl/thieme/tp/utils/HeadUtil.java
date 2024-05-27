@@ -26,7 +26,7 @@ public class HeadUtil {
         if (!(im instanceof SkullMeta)) return null;
         SkullMeta headMeta = (SkullMeta) im;
 
-        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+        GameProfile profile = new GameProfile(UUID.randomUUID(), UUID.randomUUID().toString());
         char[] encodedData = Base64Coder.encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
         profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
         Field profileField = null;

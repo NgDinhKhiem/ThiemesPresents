@@ -1,7 +1,7 @@
 name: ThiemesPresents
 main: nl.thieme.tp.ThiemesPresents
 version: 1.0
-api-version: 1.13
+api-version: 1.17
 authors: [ ThiemeH ]
 softdepend: [ Essentials ]
 description: Presents for everyone!
