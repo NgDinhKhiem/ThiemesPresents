@@ -10,6 +10,7 @@ import nl.thieme.tp.models.ITPWrapper;
 import nl.thieme.tp.models.Present;
 import nl.thieme.tp.models.PresentInventory;
 import nl.thieme.tp.models.TPermission;
+import nl.thieme.tp.utils.ConsoleFilter;
 import nl.thieme.tp.utils.InvUtil;
 import nl.thieme.tp.utils.MsgUtil;
 import nl.thieme.tp.wrappers.TPWrapper_12;
@@ -26,6 +27,7 @@ public class ThiemesPresents extends JavaPlugin {
 
     public static int SERVER_VERSION;
     public static ITPWrapper WRAPPER;
+    public static ConsoleFilter consoleFilter;
     public static ThiemesPresents INSTANCE;
     public static Logger LOGGER;
     public static boolean DEBUG = false;
@@ -45,6 +47,8 @@ public class ThiemesPresents extends JavaPlugin {
 
     public void onEnable() {
         INSTANCE = this;
+        consoleFilter = new ConsoleFilter();
+        consoleFilter.registerFilter();
         pluginFile = getDescription();
         LOGGER = getLogger();
         SERVER_VERSION = Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].split("\\.")[1]);

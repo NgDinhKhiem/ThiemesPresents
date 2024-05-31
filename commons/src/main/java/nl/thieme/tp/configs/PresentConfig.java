@@ -35,7 +35,6 @@ public class PresentConfig extends FileConfig {
             Present present = new Present(root, XMaterial.PLAYER_HEAD.parseItem());
             if (MessageConfig.MessageKey.LORE_OPEN.get().length() > 0)
                 present.addLore(MessageConfig.MessageKey.LORE_OPEN.get());
-
             // Load properties
             if (base.contains(headUrlKey)) present.setClosedHeadUrl(base.getString(headUrlKey));
             if (base.contains(openHeadUrlKey)) present.setOpenHeadUrl(base.getString(openHeadUrlKey));

@@ -8,12 +8,15 @@ import nl.thieme.tp.events.custom.PresentWrapEvent;
 import nl.thieme.tp.models.FullSound;
 import nl.thieme.tp.models.PresentNBT;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.*;
+import java.util.Objects;
 
 public class PresentUtil {
 
@@ -138,8 +141,20 @@ public class PresentUtil {
 
         FullSound fs = MainConfig.ConfigKey.WRAP_SOUND.getFullSound();
         if (fs != null) p.playSound(p.getLocation(), fs.getXSound().parseSound(), fs.getVolume(), fs.getPitch());
-
         Bukkit.getPluginManager().callEvent(new PresentWrapEvent.Post(present, toBeWrapped, p, presentNBT));
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = HeadUtil.setHeadUrl(PresentUtil.getPresentNBT(present).closedHead,item.getItemMeta());
+        meta.setDisplayName(present.getItemMeta().getDisplayName());
+        item.setItemMeta(meta);
+        item.setItemMeta(PresentUtil.setPresentMeta(item,PresentUtil.getPresentNBT(present)));
+        for(int i = 0;i<p.getInventory().getSize();i++){
+            if(p.getInventory().getItem(i)!=null) {
+                if (Objects.requireNonNull(p.getInventory().getItem(i)).equals(present)) {
+                    p.getInventory().setItem(i,item);
+                    break;
+                }
+            }
+        }
     }
 
     private static boolean removeItem(Player p, ItemStack is) {

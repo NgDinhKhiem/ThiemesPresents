@@ -2,6 +2,7 @@ package nl.thieme.tp.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import nl.thieme.tp.ThiemesPresents;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -22,11 +23,12 @@ public class HeadUtil {
     private static final String minecraft_head_url_base = "https://textures.minecraft.net/texture/";
 
     public static SkullMeta setHeadUrl(String endpoint, ItemMeta im) {
+        ThiemesPresents.consoleFilter.toggle(true);
         String url = minecraft_head_url_base + endpoint;
         if (!(im instanceof SkullMeta)) return null;
         SkullMeta headMeta = (SkullMeta) im;
 
-        GameProfile profile = new GameProfile(UUID.randomUUID(), UUID.randomUUID().toString());
+        GameProfile profile = new GameProfile(UUID.randomUUID(), endpoint);
         char[] encodedData = Base64Coder.encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
         profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
         Field profileField = null;
